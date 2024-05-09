@@ -1,19 +1,19 @@
 <html>
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris</title>
 
-    <link rel="stylesheet" href="../static/css/tetris.css">
-    <link rel="icon" type="image/x-icon" href="../static/images/games/tetris/logo.ico">
-
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'css/tetris.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/games/tetris/logo.ico' %}">
 </head>
-
 <body>
-
     <div id="wrapper">
         <div id="left-div">
-            <img src="../static/images/games/tetris/logo.ico" id="logo">
+            <img src="{% static 'images/games/tetris/logo.ico' %}" id="logo">
             <hr>
-
             <div id="score-div">
                 <label> Score: </label>
                 <label id="score"></label>
@@ -24,12 +24,10 @@
             </div>
         </div>
         <div id="game-container">
-            <img src="../static/images/games/tetris/background.png" id="background">
+            <img src="{% static 'images/games/tetris/background.png' %}" id="background">
             <canvas id="game-canvas"></canvas>
         </div>
     </div>
 </body>
-
-<script src="../static/JS/tetris.js"></script>
-
+<script src="{% static 'javascript/tetris.js' %}"></script>
 </html>

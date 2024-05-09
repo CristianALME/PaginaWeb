@@ -2,8 +2,13 @@
 
 <head>
 
-    <link rel="stylesheet" href="../static/css/culebrita.css">
-    <link rel="icon" type="image/x-icon" href="../static/images/games/culebrita/logo.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/culebrita.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/games/culebrita/logo.ico' %}">
     <title>Snake Game!</title>
 </head>
 
@@ -12,7 +17,7 @@
     <div id="wrapper">
 
         <div id="left-div">
-            <img src="../static/images/games/culebrita/logo.png" id="logo">
+            <img src="{% static 'images/games/culebrita/logo.png'%}" id="logo">
             <hr>
 
             <div id="score-div">
@@ -32,6 +37,6 @@
     </div>
 </body>
 
-<script src="../static/JS/culebrita.js"></script>
+<script src="{%static 'javascript/culebrita.js'%}"></script>
 
 </html>

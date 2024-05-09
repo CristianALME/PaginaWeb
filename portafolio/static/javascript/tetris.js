@@ -19,7 +19,7 @@ window.onload = () => {
             if (color !== null) {
                 this.color = color;
                 this.img = new Image();
-                this.img.src = `resources/${Tetromino.COLORS[color]}.jpg`
+                this.img.src = `../static/images/games/tetris/${Tetromino.COLORS[color]}.jpg`
             }
         }
 
@@ -43,7 +43,7 @@ window.onload = () => {
                 this.img.onload = () => this.draw();
                 return;
             }
-            // Print the current tetromine
+            // Print the current tetromino
             for (let i = 0; i < this.length; ++i) {
                 ctx.drawImage(
                     this.img,
@@ -110,8 +110,6 @@ window.onload = () => {
         delay,
         score,
         lines;
-
-
 
     (function setup() {
 

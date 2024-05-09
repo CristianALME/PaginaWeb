@@ -13,14 +13,6 @@ window.onload = () => {
         snake,
         fruit;
 
-    // Imágenes para la cabeza y el cuerpo del snake
-    const headImage = new Image();
-    headImage.src = "C:/Users/crist/Documents/pagina/portafolio/static/images/skin.png";
-
-    const bodyImage = new Image();
-    bodyImage.src = "C:/Users/crist/Documents/pagina/portafolio/static/images/skin.png";
-
-
     (function setup() {
 
         ctx.canvas.width = FIELD_WIDTH * BLOCK_SIZE;
@@ -41,14 +33,36 @@ window.onload = () => {
     function draw() {
         scoreLbl.innerText = score;
 
-        // Clear canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Clear last block
+        ctx.clearRect(
+            snake[snake.length - 1].x * BLOCK_SIZE,
+            snake[snake.length - 1].y * BLOCK_SIZE,
+            BLOCK_SIZE,
+            BLOCK_SIZE
+        );
 
-        // Draw snake
-        ctx.fillStyle = "rgb(0, 255, 0)"; // Color verde
-        snake.forEach(block => {
-            ctx.fillRect(block.x * BLOCK_SIZE, block.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-        });
+        // Update body
+        for (let i = snake.length - 1; i > 0; --i)
+            snake[i] = { ...snake[i - 1] };
+
+        // Select direction
+        switch (direction) {
+            case "ArrowUp":
+                snake[0].y ? --snake[0].y : snake[0].y = FIELD_HEIGHT - 1;
+                break;
+            case "ArrowDown":
+                snake[0].y !== FIELD_HEIGHT - 1 ? ++snake[0].y : snake[0].y = 0;
+                break;
+            case "ArrowLeft":
+                snake[0].x ? --snake[0].x : snake[0].x = FIELD_WIDTH - 1;
+                break;
+            case "ArrowRight":
+                snake[0].x !== FIELD_WIDTH - 1 ? ++snake[0].x : snake[0].x = 0;
+                break;
+        }
+
+        ctx.fillStyle = "rgb(0, 255, 0)";
+        ctx.fillRect(snake[0].x * BLOCK_SIZE, snake[0].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
 
         // Check collision with itself
         for (let i = 1; i < snake.length; ++i) {
@@ -56,21 +70,22 @@ window.onload = () => {
                 reset();
         }
 
-        // Draw fruit
+        // Make fruit
         if (!fruit) {
             do {
                 fruit = {
                     x: Math.floor(Math.random() * (FIELD_WIDTH - 1)),
                     y: Math.floor(Math.random() * (FIELD_HEIGHT - 1))
                 };
+
             } while (snake.some(block => block.x === fruit.x && block.y === fruit.y));
 
-            ctx.fillStyle = "rgb(255, 0, 0)"; // Color rojo
+            ctx.fillStyle = "rgb(255, 0, 0)";
             ctx.fillRect(fruit.x * BLOCK_SIZE, fruit.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
         }
         // Check collision with fruit
         else if (fruit.x === snake[0].x && fruit.y === snake[0].y) {
-            snake.push({ ...snake[snake.length - 1] }); // Add new block to the end of the snake
+            snake.push({ x: -1, y: -1 });
             fruit = null;
             ++score;
         }
